@@ -74,13 +74,13 @@ func (r *AutomatedAppDeploymentReconciler) Reconcile(ctx context.Context, req ct
 		Namespace: automatedAppDeployment.Namespace,
 		Name:      automatedAppDeployment.Name,
 	}, deployment)
-	
+
 	if k8serrors.IsNotFound(err) {
 		deployment = &appsv1.Deployment{
 			ObjectMeta: metav1.ObjectMeta{
-				Name:		automatedAppDeployment.Name,
-				Namespace:	automatedAppDeployment.Namespace,
-				Labels:		labels,
+				Name:      automatedAppDeployment.Name,
+				Namespace: automatedAppDeployment.Namespace,
+				Labels:    labels,
 			},
 			Spec: appsv1.DeploymentSpec{
 				Replicas: &automatedAppDeployment.Spec.Replicas,
@@ -97,9 +97,9 @@ func (r *AutomatedAppDeploymentReconciler) Reconcile(ctx context.Context, req ct
 
 							for _, deploymentSpec := range automatedAppDeployment.Spec.Deployments {
 								containers = append(containers, corev1.Container{
-									Name: 	automatedAppDeployment.Name,
-									Image: 	deploymentSpec.Image,
-									Ports:	func() []corev1.ContainerPort {
+									Name:  automatedAppDeployment.Name,
+									Image: deploymentSpec.Image,
+									Ports: func() []corev1.ContainerPort {
 										var containerPorts []corev1.ContainerPort
 										for _, port := range deploymentSpec.Ports {
 											containerPorts = append(containerPorts, corev1.ContainerPort{
@@ -112,7 +112,7 @@ func (r *AutomatedAppDeploymentReconciler) Reconcile(ctx context.Context, req ct
 										var envVars []corev1.EnvVar
 										for key, value := range deploymentSpec.EnvVars {
 											envVars = append(envVars, corev1.EnvVar{
-												Name: key,
+												Name:  key,
 												Value: value,
 											})
 										}
@@ -148,9 +148,9 @@ func (r *AutomatedAppDeploymentReconciler) Reconcile(ctx context.Context, req ct
 	if k8serrors.IsNotFound(err) {
 		service = &corev1.Service{
 			ObjectMeta: metav1.ObjectMeta{
-				Name:	  	automatedAppDeployment.Name,
-				Namespace: 	automatedAppDeployment.Namespace,
-				Labels:		labels,
+				Name:      automatedAppDeployment.Name,
+				Namespace: automatedAppDeployment.Namespace,
+				Labels:    labels,
 			},
 			Spec: corev1.ServiceSpec{
 				Selector: labels,

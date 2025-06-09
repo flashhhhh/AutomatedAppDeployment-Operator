@@ -51,7 +51,16 @@ var _ = Describe("AutomatedAppDeployment Controller", func() {
 						Name:      resourceName,
 						Namespace: "default",
 					},
-					// TODO(user): Specify other spec details if needed.
+					Spec: automationv1.AutomatedAppDeploymentSpec{
+						Replicas: 1,
+						Deployments: []automationv1.Deployment{{
+							Image: "postgres:latest",
+							Ports: []int32{5432},
+							EnvVars: map[string]string{
+								"POSTGRES_PASSWORD": "12345678",
+							},
+						}},
+					},
 				}
 				Expect(k8sClient.Create(ctx, resource)).To(Succeed())
 			}

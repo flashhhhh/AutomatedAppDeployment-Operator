@@ -24,9 +24,9 @@ import (
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
 type Deployment struct {
-	Image   string             	`json:"image"`
-	Ports    []int32           	`json:"ports"`
-	EnvVars  map[string]string 	`json:"envVars,omitempty"`
+	Image   string            `json:"image"`
+	Ports   []int32           `json:"ports"`
+	EnvVars map[string]string `json:"envVars,omitempty"`
 }
 
 // AutomatedAppDeploymentSpec defines the desired state of AutomatedAppDeployment.
@@ -34,8 +34,8 @@ type AutomatedAppDeploymentSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	Replicas int32					`json:"replicas,omitempty"`
-	Deployments []Deployment 		`json:"deployments"`
+	Replicas    int32        `json:"replicas,omitempty"`
+	Deployments []Deployment `json:"deployments"`
 }
 
 // AutomatedAppDeploymentStatus defines the observed state of AutomatedAppDeployment.
