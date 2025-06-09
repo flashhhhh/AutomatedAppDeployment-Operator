@@ -1,0 +1,9 @@
+apiVersion: automation.local.io/v1
+kind: AutomatedAppDeployment
+metadata:
+  labels:
+    app.kubernetes.io/name: automatedappdeployment-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: automatedappdeployment-sample
+spec:
+  # TODO(user): Add fields here

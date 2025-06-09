@@ -1,0 +1,13 @@
+apiVersion: automation.local.io/v1
+kind: AutomatedAppDeployment
+metadata:
+  name: postgres
+  namespace: default
+spec:
+  replicas: 1
+  deployments:
+    - image: postgres
+      ports:
+        - 5432
+      envVars:
+        POSTGRES_PASSWORD: "12345678"
