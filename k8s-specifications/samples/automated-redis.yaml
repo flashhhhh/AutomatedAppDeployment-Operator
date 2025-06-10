@@ -1,0 +1,11 @@
+apiVersion: automation.local.io/v1
+kind: AutomatedAppDeployment
+metadata:
+  name: redis
+  namespace: default
+spec:
+  replicas: 5
+  deployments:
+    - image: redis
+      ports:
+        - 6379

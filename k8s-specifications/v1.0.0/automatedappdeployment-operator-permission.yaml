@@ -1,0 +1,34 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: automatedappdeployment-operator-role
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["automation.local.io"]
+    resources: ["automatedappdeployments"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["automation.local.io"]
+    resources: ["automatedappdeployments/status"]
+    verbs: ["get", "update", "patch"]
+  - apiGroups: ["automation.local.io"]
+    resources: ["automatedappdeployments/finalizers"]
+    verbs: ["update"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: automatedappdeployment-clusterrolebinding
+subjects:
+  - kind: ServiceAccount
+    name: automatedappdeployment-operator-controller-manager
+    namespace: automatedappdeployment-operator-system
+roleRef:
+  kind: ClusterRole
+  name: automatedappdeployment-operator-role
+  apiGroup: rbac.authorization.k8s.io
